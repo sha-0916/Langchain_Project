@@ -28,6 +28,16 @@ poem_chain = prompt2 | llm
 
 class TopicRequest(BaseModel):
     topic: str
+    
+@app.get("/essay")
+async def generate_essay_get():
+    
+
+    return {
+        "answer": "hi"
+    }
+    
+
 
 @app.post("/essay")
 async def generate_essay(request: TopicRequest):
@@ -37,6 +47,19 @@ async def generate_essay(request: TopicRequest):
 
     return {
         "answer": response.content
+    }
+    
+heritage_prompt = ChatPromptTemplate.from_template(
+    "Write me a poem in 20 words about India's heritage."
+)
+heritage_chain=heritage_prompt|llm  
+    
+@app.get("/poem")
+async def give_heritage_poem():
+    response = await heritage_chain.ainvoke({
+    })
+    return {
+        "heritage_poem": response.content
     }
 
 @app.post("/poem")
