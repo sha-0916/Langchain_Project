@@ -1,27 +1,29 @@
 import requests
 import streamlit as st
 
-def get_openai_response(input_text):
-    response=requests.post("http://localhost:8000/essay",
-    json={'input':{'topic':input_text}})
+def get_essay_response(input_text):
+    response = requests.post(
+        "http://localhost:8000/essay",
+        json={"topic": input_text}
+    )
 
-    return response.json()['output']['content']
+    return response.json()["answer"]
 
-def get_ollama_response(input_text):
-    response=requests.post(
-    "http://localhost:8000/poem",
-    json={'input':{'topic':input_text}})
+def get_poem_response(input_text):
+    response = requests.post(
+        "http://localhost:8000/poem",
+        json={"topic": input_text}
+    )
 
-    return response.json()['output']
+    return response.json()["answer"]
 
-    ## streamlit framework
+st.title("LangChain Demo With Ollama API")
 
-st.title('Langchain Demo With LLAMA2 API')
-input_text=st.text_input("Write an essay on")
-input_text1=st.text_input("Write a poem on")
+input_text = st.text_input("Write an essay on")
+input_text1 = st.text_input("Write a poem on")
 
 if input_text:
-    st.write(get_openai_response(input_text))
+    st.write(get_essay_response(input_text))
 
 if input_text1:
-    st.write(get_ollama_response(input_text1))
+    st.write(get_poem_response(input_text1))

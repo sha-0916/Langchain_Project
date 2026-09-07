@@ -50,7 +50,7 @@ async def generate_essay(request: TopicRequest):
     }
     
 heritage_prompt = ChatPromptTemplate.from_template(
-    "Write me a poem in 20 words about India's heritage."
+    "Write me a poem in 50 words about India's heritage with proper rhyming scheme."
 )
 heritage_chain=heritage_prompt|llm  
     
